@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "deployment.fullname" . }}
+  namespace: {{ template "global.namespace" . }}
+  labels:
+    name: {{ template "deployment.fullname" . }}
+    version: {{ .Values.global.version }}
+  annotations:
+{{ toYaml .Values.deployment.annotate | indent 4}}
+spec:
+  replicas: {{ .Values.deployment.replicas  }}
+  selector:
+    matchLabels:
+      name: {{ template "pod.fullname" . }}
+      version: {{ .Values.global.version }}
+  template:
+    metadata:
+      name: {{ template "pod.fullname" . }}
+      namespace: {{ template "global.namespace" . }}
+      labels:
+        name: {{ template "pod.fullname" . }}
+        version: {{ .Values.global.version }}
+    spec:
+      containers:
+        - name: {{ template "container.fullname" . }}
+          image: {{ template "container.image" . }}
+          {{- include "port.container.range" . | indent 10 }}
