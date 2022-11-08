@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "service.fullname" . }}
+  namespace: {{ template "global.namespace" . }}
+  labels:
+    name: {{ template "service.fullname" . }}
+    version: {{ .Values.global.version }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    name: {{ template "pod.fullname" . }}
+    version: {{ .Values.global.version }}
+    {{- include "port.service.range" . | indent 2 }}

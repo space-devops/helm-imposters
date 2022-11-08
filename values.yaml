@@ -1,0 +1,23 @@
+global:
+  prefix: imposter
+  version: 0.1.0
+
+namespace:
+  create: true
+  name: mountebank
+
+deployment:
+  replicas: 1
+  annotate:
+    imposters.helm.created-by: "helm-imposter-installer"
+  image:
+    name: "bbyars/mountebank"
+    version: "2.8.1"
+
+service:
+  type: ClusterIP
+  port: 2525
+  imposters:
+    portRange:
+      initPort: 4040
+      endPort: 4045
