@@ -21,3 +21,8 @@ service:
     portRange:
       initPort: 4040
       endPort: 4045
+  healthCheck:
+    readiness:
+      path: /config
+    liveness:
+      path: /config

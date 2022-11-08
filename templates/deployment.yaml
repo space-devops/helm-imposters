@@ -26,3 +26,11 @@ spec:
         - name: {{ template "container.fullname" . }}
           image: {{ template "container.image" . }}
           {{- include "port.container.range" . | indent 10 }}
+          readinessProbe:
+            httpGet:
+              port: {{ .Values.service.port }}
+              path: {{ .Values.service.healthCheck.readiness.path }}
+          livenessProbe:
+            httpGet:
+              port: {{ .Values.service.port }}
+              path: {{ .Values.service.healthCheck.liveness.path }}
