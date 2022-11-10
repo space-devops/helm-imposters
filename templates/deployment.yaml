@@ -34,3 +34,10 @@ spec:
             httpGet:
               port: {{ .Values.service.port }}
               path: {{ .Values.service.healthCheck.liveness.path }}
+          resources:
+            requests:
+              cpu: {{ .Values.deployment.resources.request.cpu }}
+              memory: {{ .Values.deployment.resources.request.memory }}
+            limits:
+              cpu: {{ .Values.deployment.resources.limits.cpu }}
+              memory: {{ .Values.deployment.resources.limits.memory }}

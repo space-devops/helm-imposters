@@ -13,6 +13,13 @@ deployment:
   image:
     name: "bbyars/mountebank"
     version: "2.8.1"
+  resources:
+    request:
+      memory: 512Mi
+      cpu: 256m
+    limits:
+      memory: 1536Mi
+      cpu: 1000m
 
 service:
   type: ClusterIP
