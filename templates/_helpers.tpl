@@ -77,3 +77,14 @@ ports:
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "pod.security.context" }}
+securityContext:
+  runAsUser: {{ .Values.security.context.userId }}
+  {{- if .Values.security.context.isRoot -}}
+  runAsNonRoot: false
+  {{- else }}
+  runAsNonRoot: true
+  {{- end }}
+  privileged: {{ .Values.security.context.isPrivileged }}
+{{- end }}

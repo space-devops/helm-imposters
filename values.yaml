@@ -33,3 +33,9 @@ service:
       path: /config
     liveness:
       path: /config
+
+security:
+  context:
+    userId: 1000
+    isRoot: false
+    isPrivileged: false
