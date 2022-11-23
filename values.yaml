@@ -20,6 +20,11 @@ deployment:
     limits:
       memory: 1536Mi
       cpu: 1000m
+  extraArgs:
+    - --pidfile
+    - /tmp/mb.pid
+    - --logfile
+    - /tmp/mb.log
 
 service:
   type: ClusterIP

@@ -49,11 +49,11 @@
 {{- if ge $loop 1 }}
 ports:
 - containerPort: {{ .Values.service.port }}
-  name: {{ printf "service-port-%d" (int .Values.service.port) }}
+  name: {{ printf "svc-%d" (int .Values.service.port) }}
   protocol: TCP
 {{- range untilStep (int $initiPort) (int (add $endPort 1)) 1 }}
 - containerPort: {{ . }}
-  name: {{ printf "imposter-port-%d" . }}
+  name: {{ printf "imps-%d" . }}
   protocol: TCP
 {{- end }}
 {{- end }}
@@ -67,12 +67,12 @@ ports:
 ports:
 - port: {{ .Values.service.port }}
   targetPort: {{ .Values.service.port }}
-  name: {{ printf "service-port-%d" (int .Values.service.port) }}
+  name: {{ printf "svc-%d" (int .Values.service.port) }}
   protocol: TCP
 {{- range untilStep (int $initiPort) (int (add $endPort 1)) 1 }}
 - port: {{ . }}
   targetPort: {{ . }}
-  name: {{ printf "imposter-port-%d" . }}
+  name: {{ printf "imps-%d" . }}
   protocol: TCP
 {{- end }}
 {{- end }}
@@ -88,3 +88,12 @@ securityContext:
   {{- end }}
   privileged: {{ .Values.security.context.isPrivileged }}
 {{- end }}
+
+{{- define "pod.extra.arguments" }}
+{{- if and (ne .Values.deployment.extraArgs nil) (gt (len .Values.deployment.extraArgs) 0) }}
+args:
+  {{- range .Values.deployment.extraArgs }}
+  - {{ . }}
+  {{- end -}}
+{{- end -}}
+{{- end -}}
