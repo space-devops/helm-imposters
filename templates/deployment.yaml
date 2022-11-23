@@ -26,6 +26,7 @@ spec:
         - name: {{ template "container.fullname" . }}
           image: {{ template "container.image" . }}
           {{- include "port.container.range" . | indent 10 }}
+          {{- include "pod.extra.arguments" . | indent 10 }}
           readinessProbe:
             httpGet:
               port: {{ .Values.service.port }}
