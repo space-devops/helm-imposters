@@ -42,6 +42,14 @@
 {{- end }}
 {{- end }}
 
+{{- define "gateway.routes.name" }}
+{{- if .Values.namespace.create }}
+{{- printf "%s-routes" .Values.namespace.name }}
+{{- else }}
+{{- printf "%s-autogen-routes" .Chart.Name}}
+{{- end }}
+{{- end }}
+
 {{- define "port.container.range" }}
 {{- $initiPort := .Values.service.imposters.portRange.initPort -}}
 {{- $endPort := .Values.service.imposters.portRange.endPort -}}
@@ -77,6 +85,25 @@ ports:
 {{- end }}
 {{- end }}
 {{- end }}
+
+{{- define "gateway.service.range" }}
+{{- if ge (len .Values.gateway.paths ) 1 }}
+{{- range .Values.gateway.paths }}
+- path:
+    type: PathPrefix
+    value: {{ .path }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "gateway.service.ports" }}
+{{- if ge (len .Values.gateway.paths ) 1 }}
+{{- range .Values.gateway.paths }}
+- name: {{ printf "svc-%d" (int .port) }}
+  port: {{ .port }}
+{{- end -}}
+{{- end -}}
+{{- end -}}
 
 {{- define "pod.security.context" }}
 securityContext:
