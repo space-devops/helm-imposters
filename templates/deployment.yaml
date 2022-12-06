@@ -27,6 +27,7 @@ spec:
           image: {{ template "container.image" . }}
           {{- include "port.container.range" . | indent 10 }}
           {{- include "pod.extra.arguments" . | indent 10 }}
+          imagePullPolicy: IfNotPresent
           readinessProbe:
             httpGet:
               port: {{ .Values.service.port }}

@@ -39,6 +39,31 @@ service:
     liveness:
       path: /config
 
+gateway:
+  hostname: mountebank.io
+  name: "mountebank-gateway"
+  paths:
+    - path: /
+      port: 2525
+    - path: /v1/planet/earth
+      port: 4548
+    - path: /v1/planet/jupiter
+      port: 4550
+    - path: /v1/planet/mars
+      port: 4549
+    - path: /v1/planet/mercury
+      port: 4546
+    - path: /v1/planet/neptune
+      port: 4553
+    - path: /v1/planet/pluto
+      port: 4554
+    - path: /v1/planet/saturn
+      port: 4551
+    - path: /v1/planet/uranus
+      port: 4552
+    - path: /v1/planet/venus
+      port: 4547
+
 security:
   context:
     userId: 1000
