@@ -3,7 +3,6 @@ global:
   version: 0.1.0
 
 namespace:
-  create: true
   name: mountebank
 
 deployment:
@@ -31,8 +30,8 @@ service:
   port: 2525
   imposters:
     portRange:
-      initPort: 4040
-      endPort: 4045
+      initPort: 4540
+      endPort: 4560
   healthCheck:
     readiness:
       path: /config

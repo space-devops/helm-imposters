@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ template "service.fullname" . }}
-  namespace: {{ template "global.namespace" . }}
+  namespace: {{ .Values.namespace.name }}
   labels:
     name: {{ template "service.fullname" . }}
     version: {{ .Values.global.version }}
