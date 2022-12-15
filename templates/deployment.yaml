@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ template "deployment.fullname" . }}
-  namespace: {{ template "global.namespace" . }}
+  namespace: {{ .Values.namespace.name }}
   labels:
     name: {{ template "deployment.fullname" . }}
     version: {{ .Values.global.version }}
@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       name: {{ template "pod.fullname" . }}
-      namespace: {{ template "global.namespace" . }}
+      namespace: {{ .Values.namespace.name }}
       labels:
         name: {{ template "pod.fullname" . }}
         version: {{ .Values.global.version }}

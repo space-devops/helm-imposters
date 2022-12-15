@@ -1,33 +1,13 @@
-{{- define "global.namespace" -}}
-{{- if .Values.namespace.create -}}
-{{- printf "%s-%s" .Values.global.prefix .Values.namespace.name -}}
-{{- else -}}
-{{- printf "%s-server" .Values.global.prefix -}}
-{{- end -}}
-{{- end -}}
-
 {{- define "deployment.fullname" }}
-{{- if .Values.namespace.create }}
 {{- printf "%s-deploy" .Values.namespace.name }}
-{{- else }}
-{{- printf "%s-autogen-deploy" .Chart.Name }}
-{{- end }}
 {{- end }}
 
 {{- define "pod.fullname" }}
-{{- if .Values.namespace.create }}
 {{- printf "%s-pod" .Values.namespace.name }}
-{{- else }}
-{{- printf "%s-autogen.pod" .Chart.Name }}
-{{- end }}
 {{- end }}
 
 {{- define "container.fullname" }}
-{{- if .Values.namespace.create }}
 {{- printf "%s-server" .Values.namespace.name }}
-{{- else }}
-{{- printf "%s-autogen-server" .Chart.Name }}
-{{- end }}
 {{- end }}
 
 {{- define "container.image" }}
@@ -35,11 +15,7 @@
 {{- end }}
 
 {{- define "service.fullname" }}
-{{- if .Values.namespace.create }}
 {{- printf "%s-svc" .Values.namespace.name }}
-{{- else }}
-{{- printf "%s-autogen-svc" .Chart.Name }}
-{{- end }}
 {{- end }}
 
 {{- define "port.container.range" }}
