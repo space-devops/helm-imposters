@@ -65,8 +65,17 @@ securityContext:
   privileged: {{ .Values.security.context.isPrivileged }}
 {{- end }}
 
+{{/*{{- define "pod.extra.arguments" }}*/}}
+{{/*{{- if and (ne .Values.deployment.extraArgs nil) (gt (len .Values.deployment.extraArgs) 0) }}*/}}
+{{/*args:*/}}
+{{/*  {{- range .Values.deployment.extraArgs }}*/}}
+{{/*  - {{ . }}*/}}
+{{/*  {{- end -}}*/}}
+{{/*{{- end -}}*/}}
+{{/*{{- end -}}*/}}
+
 {{- define "pod.extra.arguments" }}
-{{- if and (ne .Values.deployment.extraArgs nil) (gt (len .Values.deployment.extraArgs) 0) }}
+{{- if (gt (len .Values.deployment.extraArgs) 0) }}
 args:
   {{- range .Values.deployment.extraArgs }}
   - {{ . }}
